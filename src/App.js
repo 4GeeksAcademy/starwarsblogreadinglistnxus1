@@ -1,33 +1,37 @@
-import React, {useState, useEffect} from "react";
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
 
-function App() {
+const App = () => {
     const [people, setPeople] = useState([]);
-    const [planets, setPlanets] = useState([]);
-    const [loading, setLoading ] = useState(true);
+
+    const fetchPeople = async () => {
+        try {
+            const response = await fetch('https://swapi.dev/api/people/?format=json');
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setPeople(data.results);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    
 
     useEffect(() => {
-        async function fetchPeople() {
-            let res = await fetch('https://swapi.co/api/people/?format=json');
-            let data = await res.json();
-            setPeople(data.results);
-        }
-
-        async function fetchPlanets() {
-            let res = await fecth('https://swapi.co/api/planets/?format=json');
-            let data = await res.json();
-            setPlanets(data.results);
-        }
-
         fetchPeople();
-        fetchPlanets();
-    }, [])
-    console.log('people', people);
-    console.log('planets', planets);
+    }, []);
 
-    return <div className="App"> Hello </div>;
-    
-}
+    return (
+        <div>
+            <h1>Personajes de Star Wars</h1>
+            <ul>
+                {people.map(person => (
+                    <li key={person.name}>{person.name}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
 
 export default App;

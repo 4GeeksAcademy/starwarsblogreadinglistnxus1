@@ -2,6 +2,7 @@
 	"name": "react-hello-webapp",
 	"engines": {
 		"node": "16.x"
+		
 	},
 	"version": "1.0.1",
 	"description": "",
@@ -10,6 +11,7 @@
 		"start": "webpack-dev-server --config webpack.dev.js --host 0.0.0.0 --port 3000",
 		"build": "webpack --config webpack.prod.js",
 		"deploy": "node deploy-to-github.js"
+		
 	},
 	"author": {
 		"name": "Alejandro Sanchez",
@@ -23,6 +25,7 @@
 		{
 			"name": "Ignacio Cordoba",
 			"url": "http://github.com/nachovz"
+			
 		}
 	],
 	"license": "ISC",
@@ -57,6 +60,7 @@
 		"webpack-cli": "^4.9.1",
 		"webpack-dev-server": "^4.6.0",
 		"webpack-merge": "^5.8.0"
+		
 	},
 	"babel": {
 		"presets": [
@@ -84,4 +88,7 @@
 		"semantic-ui-css": "^2.5.0",
 		"semantic-ui-react": "^2.1.5"
 	}
+
+	
+
 }
