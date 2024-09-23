@@ -1,37 +1,44 @@
 import React, { useEffect, useState } from 'react';
+import './App.css';
+import Navbar from './components/Navbar';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-const App = () => {
-    const [people, setPeople] = useState([]);
+function App() {
 
-    const fetchPeople = async () => {
-        try {
-            const response = await fetch('https://swapi.dev/api/people/?format=json');
+    const [people, setPeople] = useState ([]);
+    const [planets, setPlanets] = useState([]);
+    const [loading, setLoading] = useState(true);
+}
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setPeople(data.results);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-    
+useEffect(() => {
+    async function fetchPeople() {
+        let res = await fetch('https://swapi.dev/api/people/?format=json');
+        let data = res.json();
+        setPeople(data.results);
+    }
 
-    useEffect(() => {
-        fetchPeople();
-    }, []);
+    async function fetchPlanets() {
+        let res = await fetch('https://swapi.dev/api/planets/?format=json');
+        let data = res.json();
+        setPlanets(data.results);
+    }
+
+    fetchPeople();
+    fetchPlanets();
 
     return (
-        <div>
-            <h1>Personajes de Star Wars</h1>
-            <ul>
-                {people.map(person => (
-                    <li key={person.name}>{person.name}</li>
-                ))}
-            </ul>
-        </div>
+    <>
+        <Router>
+        
+             <Navbar />
+             
+
+        </Router>
+    
+    </>
     );
-};
+
+}, [])
+
 
 export default App;
